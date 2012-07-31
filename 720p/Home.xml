@@ -1,0 +1,547 @@
+﻿<window id="0">
+	<defaultcontrol always="true">9000</defaultcontrol>
+	<allowoverlay>no</allowoverlay>
+	<controls>
+	<!-- global background --->
+		<control type="largeimage">
+			<aspectratio>scale</aspectratio>
+			<include>screen_Dimensions</include>
+			<!--<texture background="true">backgrounds/background.png</texture>-->
+			<visible>![Player.HasVideo + !Skin.HasSetting(home.backgroundvideo)] | [Skin.HasSetting(slideshow.fanart) + ![Library.HasContent(movies) + Library.HasContent(tvshows)]]</visible>
+			<animation type="WindowOpen" condition="Window.Previous(2999)">
+				<effect type="fade" start="0" end="100" time="600" delay="0" />
+			</animation>
+			<animation type="WindowOpen" condition="!Window.Previous(2999)">
+				<effect type="fade" start="0" end="100" time="200" delay="0" />
+			</animation>
+			<animation type="WindowClose">
+				<effect type="fade" start="100" end="0" time="200" delay="0" />
+			</animation>
+		</control>
+	<!-- slideshows--->
+		<include>home_Slideshows</include>
+	<!-- background video --->
+		<control type="image">
+			<aspectratio>stretch</aspectratio>
+			<include>screen_Dimensions</include>
+			<texture>black.png</texture>
+			<visible>!Skin.HasSetting(home.backgroundvideo) + !Window.IsActive(videoplaylist) + Player.HasVideo</visible>
+		</control>
+		<control type="videowindow">
+			<include>screen_Dimensions</include>
+			<visible>!Skin.HasSetting(home.backgroundvideo) + !Window.IsActive(videoplaylist) + Player.HasVideo</visible>
+		</control>
+<!-- weather fanart --->
+		<control type="multiimage" id="1">
+			<include>screen_Dimensions</include>
+			<aspectratio>stretch</aspectratio>
+			<imagepath background="true">$INFO[Skin.String(fanart.weather.path)]/$INFO[Weather.FanartCode]</imagepath>
+			<timeperimage>slideshow_Timer</timeperimage>
+			<fadetime>200</fadetime>
+			<randomize>true</randomize>
+			<loop>yes</loop>
+			<include>fadeinout</include>
+			<visible allowhiddenfocus="true">Skin.HasSetting(fanart.weather) + Container(9000).HasFocus(17)</visible>
+		</control>
+<!-- now playing fanart --->
+		<control type="image">
+			<include>screen_Dimensions</include>
+			<texture>$INFO[MusicPlayer.Property(Fanart_Image)]</texture>
+			<aspectratio>scale</aspectratio>
+			<fadetime>850</fadetime>
+			<include>fadeinout</include>
+			<visible allowhiddenfocus="true">Container(9000).HasFocus(21)</visible>
+		</control>		<control type="largeimage">
+			<posx>0</posx>
+			<posy>0</posy>
+			<width>1280</width>
+			<height>720</height>
+			<fadetime>600</fadetime>
+			<texture background="true">$INFO[Container(53).ListItem.Property(Fanart)]</texture>
+			<animation effect="fade" start="500" end="0" time="200" condition="!Control.HasFocus(53)">Conditional</animation>
+		</control>
+		
+	<!--
+		<control type="group">
+			<visible allowhiddenfocus="true">Skin.HasSetting(home.new)</visible>
+			<control type="image">
+				<include>screen_Dimensions</include>
+				<aspectratio>stretch</aspectratio>
+				<texture>$INFO[Window.Property(LatestMovie.1.Fanart)]</texture>
+				<fadetime>850</fadetime>
+				<visible>Control.HasFocus(250)</visible>
+				<include>fadeinout</include>
+			</control>
+			<control type="image">
+				<include>screen_Dimensions</include>
+				<aspectratio>stretch</aspectratio>
+				<texture>$INFO[Window.Property(LatestMovie.2.Fanart)]</texture>
+				<fadetime>850</fadetime>
+				<visible>Control.HasFocus(251)</visible>
+				<include>fadeinout</include>
+			</control>
+			<control type="image">
+				<include>screen_Dimensions</include>
+				<aspectratio>stretch</aspectratio>
+				<texture>$INFO[Window.Property(LatestMovie.3.Fanart)]</texture>
+				<fadetime>850</fadetime>
+				<visible>Control.HasFocus(252)</visible>
+				<include>fadeinout</include>
+			</control>
+			<control type="image">
+				<include>screen_Dimensions</include>
+				<aspectratio>stretch</aspectratio>
+				<texture>$INFO[Window.Property(LatestMovie.4.Fanart)]</texture>
+				<fadetime>850</fadetime>
+				<visible>Control.HasFocus(253)</visible>
+				<include>fadeinout</include>
+			</control>
+		</control>
+	-->
+		
+		
+		
+	<!-- menu shade --->
+		
+		<control type="image">
+			<include>screen_Dimensions</include>
+			<aspectratio align="left">stretch</aspectratio>
+			<texture>overlays/backgroundlite.png</texture>
+			<visible>!Skin.HasSetting(home.new) + Skin.HasSetting(litebg) + !Skin.HasSetting(bgoff)</visible>
+		</control>
+		<control type="image">
+			<include>screen_Dimensions</include>
+			<aspectratio align="left">stretch</aspectratio>
+			<texture>overlays/background.png</texture>
+			<visible>!Skin.HasSetting(home.new) + !Skin.HasSetting(litebg) + !Skin.HasSetting(bgoff)</visible>
+		</control>
+		<control type="image">
+			<include>screen_Dimensions</include>
+			<aspectratio align="left">stretch</aspectratio>
+			<texture>overlays/vignette.png</texture>
+			<visible>Skin.HasSetting(fanart.global.alt)</visible>
+		</control>
+	
+		<control type="image">
+			<include>screen_Dimensions</include>
+			<aspectratio align="left">stretch</aspectratio>
+			<texture>overlays/backgroundlite.png</texture>
+			<visible>Skin.HasSetting(home.new) + Skin.HasSetting(litebg) + !Skin.HasSetting(bgoff)</visible>
+		</control>
+			<control type="image">
+			<include>screen_Dimensions</include>
+			<aspectratio align="left">stretch</aspectratio>
+			<texture>overlays/background.png</texture>
+			<visible>Skin.HasSetting(home.new) + !Skin.HasSetting(litebg) + !Skin.HasSetting(bgoff)</visible>
+		</control>
+		<control type="image">
+			<posx>522</posx>
+			<posy>401</posy>
+			<height>40</height>
+			<aspectratio align="left">stretch</aspectratio>
+			<texture>dialogs/submenu.png</texture>
+			<include>Animation_OpenCloseZoom</include>
+			<animation effect="slide" end="0,340" time="0" condition="-">Conditional</animation>
+				<animation type="Contional" condition="ControlGroup(1100).HasFocus()">
+					<effect type="fade" start="100" end="0" delay="500" time="300" />		
+					<effect type="slide" start="0,-30" end="0,0" time="300" />		
+				</animation>
+			<animation effect="slide" start="0,0" end="0,220" time="0" condition="Skin.HasSetting(lowermainmenu)">Conditional</animation>
+			<visible>ControlGroup(1100).HasFocus()</visible>
+		</control>
+		<!--
+		<control type="Label">
+			<posx>600</posx>
+			<posy>398</posy>
+			<width>230</width>
+			<aligny>center</aligny>
+			<height>22</height>
+			<label>$LOCALIZE[31993]</label>
+			<textcolor>Color5</textcolor>
+			<font>submenu</font>
+			<include>Animation_OpenCloseZoom</include>
+			<animation effect="slide" end="0,340" time="0" condition="-">Conditional</animation>
+				<animation type="Contional" condition="ControlGroup(1100).HasFocus()">
+					<effect type="fade" start="100" end="0" delay="500" time="300" />		
+					<effect type="slide" start="0,-30" end="0,0" time="300" />		
+				</animation>
+			<animation effect="slide" start="0,0" end="0,220" time="0" condition="Skin.HasSetting(lowermainmenu)">Conditional</animation>
+			<visible>ControlGroup(1100).HasFocus()</visible>
+		</control>
+		-->
+		<control type="image">
+			<posx>0</posx>
+			<posy>880</posy>
+			<width>1280</width>
+			<height>570</height>
+			<aspectratio align="left">stretch</aspectratio>
+			<texture>home/nowplaying_shadow.png</texture>
+			<animation effect="slide" start="0,0" end="0,-870" time="500" easing="inout" tween="cubic" condition="Control.HasFocus(53) + Container(9000).HasFocus(1) + Skin.HasSetting(lowermainmenu)">Conditional</animation>
+			<animation effect="slide" start="0,0" end="0,-570" time="500" easing="inout" tween="cubic" condition="Control.HasFocus(53) + Container(9000).HasFocus(1) + !Skin.HasSetting(lowermainmenu)">Conditional</animation>
+			<animation effect="slide" start="0,0" end="0,220" time="0" condition="Skin.HasSetting(lowermainmenu)">Conditional</animation>
+			<include>Animation_OpenCloseZoom</include>
+			<visible>!Skin.HasSetting(home.new)</visible>
+		</control>
+		<control type="image">
+			<posx>0</posx>
+			<posy>281</posy>
+			<width>1280</width>
+			<height>170</height>
+			<aspectratio align="left">stretch</aspectratio>
+			<texture>home/homemenu_blade.png</texture>
+			<animation effect="slide" start="0,0" end="0,220" time="0" condition="Skin.HasSetting(lowermainmenu)">Conditional</animation>
+			<include>Animation_OpenCloseZoom</include>
+			<visible>!Skin.HasSetting(home.new)</visible>
+		</control>
+		
+		
+		
+	<!-- toast overlay --->
+		<control type="image" id="1">
+			<include>screen_Dimensions</include>
+			<texture border="16">overlays/vignette.png</texture>
+			<visible>Window.IsActive(videoscan) | Window.IsActive(musicscan) | Window.IsActive(infodialog)</visible>
+			<include>transition_Toast</include>
+		</control>
+		
+<!-- TIME -------------------------------------------------------------------------------------------------------------------------->
+		<control type="group">
+			<include>fadeinout</include>
+			<visible>!Skin.HasSetting(home.new) + Skin.HasSetting(home.time) + ![Window.IsActive(videoscan) | Window.IsActive(musicscan) | Window.IsActive(infodialog)]</visible>	
+			<include>clock</include>
+		</control>
+
+<!-- RSS FEED -------------------------------------------------------------------------------------------------------------------------->
+		<control type="group">
+			<posy>684</posy>
+			<visible>system.getbool(lookandfeel.enablerssfeeds) + ![Skin.HasSetting(home.stats) | Skin.HasSetting(home.new)]</visible>
+			<animation effect="slide" start="0,100" end="0,0" time="250" tween="Quadratic" easing="Out">WindowOpen</animation>
+			<animation effect="slide" start="0,0" end="0,100" time="250" tween="Quadratic" easing="Out">WindowClose</animation>
+			<control type="image">
+				<posy>0</posy>
+				<width>1281</width>
+				<height>52</height>
+				<texture border="0">home/homeRSS.png</texture>
+			</control>	
+			<control type="rss" id="1">
+				<posy>10</posy>
+				<width>screen_Width</width>
+				<font>rss</font>
+				<urlset>1</urlset>
+				<height>32</height>
+				<aligny>center</aligny>
+				<textcolor>Color1</textcolor>
+				<titlecolor>Color2</titlecolor>
+				<headlinecolor>Color1</headlinecolor>
+				<highlightcolor>Focused</highlightcolor>
+				<include>fadeinout</include>
+			</control>
+		</control>
+ 	
+<!-- LIBRARY STATS -------------------------------------------------------------------------------------------------------------------------->	
+		<control type="group">
+			<posy>684</posy>
+			<visible>Skin.HasSetting(home.stats) + !Skin.HasSetting(home.new)</visible>
+			<animation effect="slide" start="0,100" end="0,0" time="250" tween="Quadratic" easing="Out">WindowOpen</animation>
+			<animation effect="slide" start="0,0" end="0,100" time="250" tween="Quadratic" easing="Out">WindowClose</animation>
+			<control type="image">
+				<posy>0</posy>
+				<width>1281</width>
+				<height>52</height>
+				<texture border="0">home/homeRSS.png</texture>
+			</control>
+			<control type="fadelabel" id="1">
+				<posy>10</posy>
+				<width>screen_Width</width>
+				<font>rss</font>
+				<align>center</align>
+				<label>[COLOR=Color1]$INFO[Window.Property(Movies.Count)] $LOCALIZE[20342][/COLOR]  $INFO[Window.Property(Movies.UnWatched)] $LOCALIZE[16101] • [COLOR=Color1]$INFO[Window.Property(Episodes.Count)] $LOCALIZE[20360][/COLOR]  $INFO[Window.Property(Episodes.UnWatched)] $LOCALIZE[16101] • [COLOR=Color1]$INFO[Window.Property(Music.ArtistsCount)] $LOCALIZE[133][/COLOR] $INFO[Window.Property(Music.AlbumsCount)] $LOCALIZE[132] $INFO[Window.Property(Music.SongsCount)] $LOCALIZE[134]</label>
+				<label>$LOCALIZE[31095]: [COLOR=Color1]$INFO[Window.Property(LatestMovie.1.Title),, • ]$INFO[Window.Property(LatestMovie.2.Title),, • ]$INFO[Window.Property(LatestMovie.3.Title),, • ]$INFO[Window.Property(LatestMovie.4.Title),, • ]$INFO[Window.Property(LatestMovie.5.Title)][/COLOR]</label>
+				<label>$LOCALIZE[31094]: [COLOR=Color1]$INFO[Window.Property(LatestEpisode.1.ShowTitle),,: ]$INFO[Window.Property(LatestEpisode.1.EpisodeTitle),, • ]$INFO[Window.Property(LatestEpisode.2.ShowTitle),,: ]$INFO[Window.Property(LatestEpisode.2.EpisodeTitle),, • ]$INFO[Window.Property(LatestEpisode.3.ShowTitle),,: ]$INFO[Window.Property(LatestEpisode.3.EpisodeTitle)][/COLOR]</label>
+				<pauseatend>6000</pauseatend>
+				<scroll>false</scroll>
+				<scrollout>false</scrollout>
+				<aligny>center</aligny>
+				<textcolor>Color2</textcolor>
+				<include>fadeinout</include>
+				<visible>![Container(9000).HasFocus(3) + !IsEmpty(PVR.NextRecordingDateTime)]</visible>
+			</control>
+			<control type="label" id="1">
+				<posy>8</posy>
+				<width>screen_Width</width>
+				<font>rss</font>
+				<align>center</align>
+				<label>[COLOR=Color2]$LOCALIZE[19157]: [/COLOR]$INFO[PVR.NextRecordingTitle], $INFO[PVR.NextRecordingDateTime] - $INFO[PVR.NextRecordingChannel]</label>
+				<aligny>center</aligny>
+				<textcolor>Color1</textcolor>
+				<include>fadeinout</include>
+				<visible>Container(9000).HasFocus(3) + !IsEmpty(PVR.NextRecordingDateTime)</visible>
+			</control>
+		</control>
+
+<!-- CALL MENU -------------------------------------------------------------------------------------------------------------------------->
+		<include condition="!Skin.HasSetting(home.new)">HomeMenu</include>
+		<include condition="Skin.HasSetting(home.new)">HomeMenu2</include>
+		
+		<control type="group" id="6100">
+			<posx>20</posx>
+			<posy>20</posy>
+			<include>transition_Indicator</include>
+			<visible>!Skin.HasSetting(home.new)</visible>
+			<control type="image">
+				<width>48</width>
+				<height>48</height>
+				<texture>navigation/left.png</texture>
+				<colordiffuse>Color1</colordiffuse>
+				<include>fadeinout</include>
+				<animation effect="slide" end="0,-10" time="100" condition="Control.HasFocus(1150)">Conditional</animation>
+				<visible>Skin.HasSetting(indicator.enable) + [Control.HasFocus(1110) | Control.HasFocus(1120) | Control.HasFocus(1130) | Control.HasFocus(1140) | Control.HasFocus(1150) | Control.HasFocus(1160) | Control.HasFocus(1170) | Control.HasFocus(1180)]</visible>
+			</control>
+		</control>
+		
+<!--recently added-->
+	<!-- Movies -->
+	
+		<control type="group">
+			<visible>Container(9000).HasFocus(1)</visible>
+			<posx>100</posx>
+			<posy>195</posy>
+			<animation effect="slide" start="0,0" end="1330,0" time="500" easing="inout" tween="cubic" condition="Control.HasFocus(53) + Container(9000).HasFocus(1)">Conditional</animation>
+			<animation effect="slide" start="0,0" end="0,-150" time="0" condition="Skin.HasSetting(lowermainmenu)">Conditional</animation>
+
+		<!-- movie poster	-->
+
+			<control type="largeimage">
+				<posx>-1430</posx>
+				<posy>260</posy>
+				<width>175</width>
+				<height>243</height>
+				<fadetime>FanartCrossfadeTime</fadetime>
+				<texture fallback="thumbs/movie_portrait.jpg" background="true">$INFO[Container(53).ListItem.thumb]</texture>
+				<bordertexture border="40">frames/frame_Square.png</bordertexture>
+				<bordersize>22</bordersize>
+				<aspectratio align="center">stretch</aspectratio>
+				<include>focus_SlidePoster</include>
+			</control>
+			
+			
+		<!-- movie title	-->
+			<control type="label">
+				<posx>-1249</posx>
+				<posy>250</posy>
+				<width>665</width>
+				<height>80</height>
+				<label>[B]$INFO[Container(53).ListItem.Label][/B]</label>
+				<align>left</align>
+				<textcolor>Color1</textcolor>
+				<font>homeMenu</font>
+			</control>
+
+		<!-- movie plot-->
+
+			<control type="textbox">
+				<font>descriptionSmall</font>
+				<posx>-1249</posx>
+				<posy>320</posy>
+				<width>1068</width>
+				<height>167</height>
+				<textcolor>c0FFFFFF</textcolor>
+				<autoscroll delay="8000" time="2000" repeat="10000"></autoscroll>
+				<label>$INFO[Container(53).ListItem.Property(MoviePlot)]</label>
+			</control>
+		</control>
+		
+		<control type="group">
+			<visible>Container(9000).HasFocus(1)</visible>
+			<posx>1864</posx>
+			<posy>142</posy>
+			<animation effect="slide" start="0" end="-925" time="200" tween="Cubic" easing="Out" condition="Control.HasFocus(53)">Conditional</animation>
+			<animation effect="fade" start="100" end="40" time="200" condition="!Control.HasFocus(53)">Conditional</animation>
+<!-- background list -->
+			<control type="image">
+				<posx>0</posx>
+				<posy>-16</posy>
+				<width>340</width>
+				<height>317</height>
+				<texture>overlays/bg-recentlyadded.png</texture>
+				<aspectratio scalediffuse="false">stretch</aspectratio>
+			</control>
+<!-- list recently added -->		
+		</control>
+		<control type="group">
+			<defaultcontrol>9000</defaultcontrol>
+			<control type="list" id="53">
+				<viewtype label="Gallery">wrap</viewtype>
+				<posx>1900</posx>
+				<posy>146</posy>
+				<width>1280</width>
+				<height>290</height>
+				<onleft>9000</onleft>
+				<onright>9000</onright>
+				<onup>53</onup>
+				<ondown>53</ondown>
+				<scrolltime>100</scrolltime>
+				<animation effect="slide" start="0" end="-925" time="200" tween="Cubic" easing="Out" condition="Control.HasFocus(53)">Conditional</animation>
+				<animation effect="fade" start="100" end="40" time="200" condition="!Control.HasFocus(53)">Conditional</animation>
+				<orientation>vertical</orientation>
+				<focusposition>0</focusposition>
+				<include>transition_Container</include>
+				<include>toggle_Menu</include>
+				<include>infoDialogHide</include>
+
+				<itemlayout height="27" width="900">
+				
+					<control type="textbox">
+						<posx>-200</posx>
+						<width>465</width>
+						<height>60</height>
+						
+						<label>$INFO[ListItem.Label]</label>
+						<align>right</align>
+						<textcolor>Color3</textcolor>
+						<font>recentlyAdded</font>
+					</control>
+					
+				</itemlayout>
+				<focusedlayout height="27" width="900">
+					<control type="textbox">
+						<posx>-200</posx>
+						<width>465</width>
+						<height>30</height>
+						
+						<label>[B]$INFO[ListItem.Label][/B]</label>
+						<align>right</align>
+						<textcolor>Color1</textcolor>
+						<font>recentlyAdded</font>
+					</control>
+					
+				</focusedlayout>
+
+				<content>
+				
+					<item id="1">
+						<label>$INFO[Window.Property(LatestMovie.1.Title)]</label>
+						<property name="MoviePlot">$INFO[Window.Property(LatestMovie.1.Plot)]</property>
+						<property name="MovieYear">$INFO[Window.Property(LatestMovie.1.Year)]</property>
+						<property name="MovieRating">$INFO[Window.Property(LatestMovie.1.Rating)]</property>
+						<property name="RunningTime">$INFO[Window.Property(LatestMovie.1.RunningTime)]</property>
+						<property name="Fanart">$INFO[Window.Property(LatestMovie.1.Fanart)]</property>
+						<onclick>PlayMedia($INFO[Window.Property(LatestMovie.1.Path)])</onclick>
+						<icon>-</icon>
+						<thumb>$INFO[Window.Property(LatestMovie.1.Thumb)]</thumb>
+						<visible>Container(9000).HasFocus(1)</visible>
+					</item>
+					<item id="2">
+						<label>$INFO[Window.Property(LatestMovie.2.Title)]</label>
+						<property name="MoviePlot">$INFO[Window.Property(LatestMovie.2.Plot)]</property>
+						<property name="MovieYear">$INFO[Window.Property(LatestMovie.2.Year)]</property>
+						<property name="MovieRating">$INFO[Window.Property(LatestMovie.2.Rating)]</property>
+						<property name="RunningTime">$INFO[Window.Property(LatestMovie.2.RunningTime)]</property>
+						<property name="Fanart">$INFO[Window.Property(LatestMovie.2.Fanart)]</property>
+						<onclick>PlayMedia($INFO[Window.Property(LatestMovie.2.Path)])</onclick>
+						<icon>-</icon>
+						<thumb>$INFO[Window.Property(LatestMovie.2.Thumb)]</thumb>
+						<visible>Container(9000).HasFocus(1)</visible>
+					</item>
+					<item id="3">
+						<label>$INFO[Window.Property(LatestMovie.3.Title)]</label>
+						<property name="MoviePlot">$INFO[Window.Property(LatestMovie.3.Plot)]</property>
+						<property name="MovieYear">$INFO[Window.Property(LatestMovie.3.Year)]</property>
+						<property name="MovieRating">$INFO[Window.Property(LatestMovie.3.Rating)]</property>
+						<property name="RunningTime">$INFO[Window.Property(LatestMovie.3.RunningTime)]</property>
+						<property name="Fanart">$INFO[Window.Property(LatestMovie.3.Fanart)]</property>
+						<onclick>PlayMedia($INFO[Window.Property(LatestMovie.3.Path)])</onclick>
+						<icon>-</icon>
+						<thumb>$INFO[Window.Property(LatestMovie.3.Thumb)]</thumb>
+						<visible>Container(9000).HasFocus(1)</visible>
+					</item>
+					<item id="4">
+						<label>$INFO[Window.Property(LatestMovie.4.Title)]</label>
+						<property name="MoviePlot">$INFO[Window.Property(LatestMovie.4.Plot)]</property>
+						<property name="MovieYear">$INFO[Window.Property(LatestMovie.4.Year)]</property>
+						<property name="MovieRating">$INFO[Window.Property(LatestMovie.4.Rating)]</property>
+						<property name="RunningTime">$INFO[Window.Property(LatestMovie.4.RunningTime)]</property>
+						<property name="Fanart">$INFO[Window.Property(LatestMovie.4.Fanart)]</property>
+						<onclick>PlayMedia($INFO[Window.Property(LatestMovie.4.Path)])</onclick>
+						<icon>-</icon>
+						<thumb>$INFO[Window.Property(LatestMovie.4.Thumb)]</thumb>
+						<visible>Container(9000).HasFocus(1)</visible>
+					</item>
+					<item id="5">
+						<label>$INFO[Window.Property(LatestMovie.5.Title)]</label>
+						<property name="MoviePlot">$INFO[Window.Property(LatestMovie.5.Plot)]</property>
+						<property name="MovieYear">$INFO[Window.Property(LatestMovie.5.Year)]</property>
+						<property name="MovieRating">$INFO[Window.Property(LatestMovie.5.Rating)]</property>
+						<property name="RunningTime">$INFO[Window.Property(LatestMovie.5.RunningTime)]</property>
+						<property name="Fanart">$INFO[Window.Property(LatestMovie.5.Fanart)]</property>
+						<onclick>PlayMedia($INFO[Window.Property(LatestMovie.5.Path)])</onclick>
+						<icon>-</icon>
+						<thumb>$INFO[Window.Property(LatestMovie.5.Thumb)]</thumb>
+						<visible>Container(9000).HasFocus(1)</visible>
+					</item>
+					<item id="6">
+						<label>$INFO[Window.Property(LatestMovie.6.Title)]</label>
+						<property name="MoviePlot">$INFO[Window.Property(LatestMovie.6.Plot)]</property>
+						<property name="MovieYear">$INFO[Window.Property(LatestMovie.6.Year)]</property>
+						<property name="MovieRating">$INFO[Window.Property(LatestMovie.6.Rating)]</property>
+						<property name="RunningTime">$INFO[Window.Property(LatestMovie.6.RunningTime)]</property>
+						<property name="Fanart">$INFO[Window.Property(LatestMovie.6.Fanart)]</property>
+						<onclick>PlayMedia($INFO[Window.Property(LatestMovie.6.Path)])</onclick>
+						<icon>-</icon>
+						<thumb>$INFO[Window.Property(LatestMovie.6.Thumb)]</thumb>
+						<visible>Container(9000).HasFocus(1)</visible>
+					</item>
+					<item id="7">
+						<label>$INFO[Window.Property(LatestMovie.7.Title)]</label>
+						<property name="MoviePlot">$INFO[Window.Property(LatestMovie.7.Plot)]</property>
+						<property name="MovieYear">$INFO[Window.Property(LatestMovie.7.Year)]</property>
+						<property name="MovieRating">$INFO[Window.Property(LatestMovie.7.Rating)]</property>
+						<property name="RunningTime">$INFO[Window.Property(LatestMovie.7.RunningTime)]</property>
+						<property name="Fanart">$INFO[Window.Property(LatestMovie.7.Fanart)]</property>
+						<onclick>PlayMedia($INFO[Window.Property(LatestMovie.7.Path)])</onclick>
+						<icon>-</icon>
+						<thumb>$INFO[Window.Property(LatestMovie.7.Thumb)]</thumb>
+						<visible>Container(9000).HasFocus(1)</visible>
+					</item>
+					<item id="8">
+						<label>$INFO[Window.Property(LatestMovie.8.Title)]</label>
+						<property name="MoviePlot">$INFO[Window.Property(LatestMovie.8.Plot)]</property>
+						<property name="MovieYear">$INFO[Window.Property(LatestMovie.8.Year)]</property>
+						<property name="MovieRating">$INFO[Window.Property(LatestMovie.8.Rating)]</property>
+						<property name="RunningTime">$INFO[Window.Property(LatestMovie.8.RunningTime)]</property>
+						<property name="Fanart">$INFO[Window.Property(LatestMovie.8.Fanart)]</property>
+						<onclick>PlayMedia($INFO[Window.Property(LatestMovie.8.Path)])</onclick>
+						<icon>-</icon>
+						<thumb>$INFO[Window.Property(LatestMovie.8.Thumb)]</thumb>
+						<visible>Container(9000).HasFocus(1)</visible>
+					</item>
+						<item id="9">
+						<label>$INFO[Window.Property(LatestMovie.9.Title)]</label>
+						<property name="MoviePlot">$INFO[Window.Property(LatestMovie.9.Plot)]</property>
+						<property name="MovieYear">$INFO[Window.Property(LatestMovie.9.Year)]</property>
+						<property name="MovieRating">$INFO[Window.Property(LatestMovie.9.Rating)]</property>
+						<property name="RunningTime">$INFO[Window.Property(LatestMovie.9.RunningTime)]</property>
+						<property name="Fanart">$INFO[Window.Property(LatestMovie.9.Fanart)]</property>
+						<onclick>PlayMedia($INFO[Window.Property(LatestMovie.9.Path)])</onclick>
+						<icon>-</icon>
+						<thumb>$INFO[Window.Property(LatestMovie.9.Thumb)]</thumb>
+						<visible>Container(9000).HasFocus(1)</visible>
+					</item>
+						<item id="10">
+						<label>$INFO[Window.Property(LatestMovie.10.Title)]</label>
+						<property name="MoviePlot">$INFO[Window.Property(LatestMovie.10.Plot)]</property>
+						<property name="MovieYear">$INFO[Window.Property(LatestMovie.10.Year)]</property>
+						<property name="MovieRating">$INFO[Window.Property(LatestMovie.10.Rating)]</property>
+						<property name="RunningTime">$INFO[Window.Property(LatestMovie.10.RunningTime)]</property>
+						<property name="Fanart">$INFO[Window.Property(LatestMovie.10.Fanart)]</property>
+						<onclick>PlayMedia($INFO[Window.Property(LatestMovie.10.Path)])</onclick>
+						<icon>-</icon>
+						<thumb>$INFO[Window.Property(LatestMovie.10.Thumb)]</thumb>
+						<visible>Container(9000).HasFocus(1)</visible>
+					</item>
+					
+				</content>
+			</control>
+		</control>	-->
+	</controls>
+</window>
